@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: "demo.webflux.ai.user"
+  output:
+    ansi:
+      enabled: always
+  ai:
+    ollama:
+      base-url: "http://localhost:11434"
+      chat:
+        options:
+          model: "llama3.1"
+
+logging:
+  level:
+    com.jpdr.apps.demo.webflux: ${APP_LOG_LEVEL}
+app:
+  pod-name: ${APP_POD_NAME}
+  max-user-purchases: 10
+  event-logger:
+    kafka:
+      enabled: ${APP_EVENT_LOGGER_KAFKA_ENABLED}
+      topic: ${APP_EVENT_LOGGER_KAFKA_TOPIC}
+      boostrap-server: ${APP_EVENT_LOGGER_KAFKA_BOOSTRAP_SERVER}
+      compression-type: ${APP_EVENT_LOGGER_KAFKA_COMPRESSION_TYPE}
+      delivery-timeout-ms: ${APP_EVENT_LOGGER_KAFKA_DELIVERY_TIMEOUT_MS}
+      request-timeout-ms: ${APP_EVENT_LOGGER_KAFKA_REQUEST_TIMEOUT_MS}
+      add-type-info-headers: ${APP_EVENT_LOGGER_KAFKA_ADD_TYPE_INFO_HEADERS};
+      retries: ${APP_EVENT_LOGGER_KAFKA_RETRIES}
