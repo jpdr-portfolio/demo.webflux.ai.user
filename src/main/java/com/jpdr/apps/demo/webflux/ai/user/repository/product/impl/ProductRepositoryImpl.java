@@ -82,7 +82,8 @@ public class ProductRepositoryImpl implements ProductRepository {
   public Mono<String> getAllJoinedSubCategoriesNames() {
     return this.findAllSubCategories()
       .flatMapIterable(subCategoryDtos -> subCategoryDtos)
-      .map(SubCategoryDto::getSubCategoryName)
+      .map(subCategoryDto -> subCategoryDto.getId() + ":" +
+        subCategoryDto.getSubCategoryName())
       .collect(Collectors.joining(", "))
       .map(subCategories -> subCategories + ". ");
   }

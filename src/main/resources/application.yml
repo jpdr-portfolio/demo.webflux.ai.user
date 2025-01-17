@@ -6,17 +6,46 @@ spring:
       enabled: always
   ai:
     ollama:
-      base-url: "http://localhost:11434"
+      base-url: "http://host.minikube.internal:11434"
       chat:
         options:
-          model: "llama3.1"
-
+          model: ${APP_OLLAMA_MODEL}
+          temperature: 0
+          mirostat: 0
+          mirostat-eta: 0.1
+          mirostat-tau: 5.0
+          top-k: 20
+          top-p: 0.3
+          frequency-penalty: 0.1
+          repeat-last-n: 0
+          tfs-z: 2
+          num-keep: 0
+  data:
+    redis:
+      host: ${APP_REDIS_HOST}
+      port: ${APP_REDIS_PORT}
+      username: ${APP_REDIS_USERNAME}
+      password: ${APP_REDIS_PASSWORD}
+      connect-timeout: ${APP_REDIS_CONNECT_TIMEOUT}
+  cache:
+    type: REDIS
+    cache-names:
+      - products
+      - products
+      - subCategories
+      - productsBySubCategory
+      - joinedSubCategoriesNames
+      - purchases
+management:
+  health:
+    redis:
+      enabled: false
 logging:
   level:
     com.jpdr.apps.demo.webflux: ${APP_LOG_LEVEL}
 app:
   pod-name: ${APP_POD_NAME}
-  max-user-purchases: 10
+  max-user-purchases: ${APP_MAX_USER_PURCHASES}
   event-logger:
     kafka:
       enabled: ${APP_EVENT_LOGGER_KAFKA_ENABLED}

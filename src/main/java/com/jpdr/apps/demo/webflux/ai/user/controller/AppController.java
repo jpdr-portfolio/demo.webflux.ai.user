@@ -20,7 +20,7 @@ public class AppController {
   private final AppService appService;
   private final EventLogger eventLogger;
   
-  @GetMapping("/profile/suggested-products/{userId}")
+  @GetMapping("/suggested-products/{userId}")
   public Mono<ResponseEntity<SuggestedProductsDto>> getSuggestedProducts(
     @PathVariable(name = "userId") Long userId){
     return this.appService.getSuggestedProducts(userId)
